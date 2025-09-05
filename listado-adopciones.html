@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Avisos de Adopción</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>🐾 Listado de Mascotas en Adopción 🐾</h1>
+    </header>
+
+    <main>
+        <!-- La visualización de la lista -->
+        <div id="list-view">
+            <h2>Haz clic en un aviso para ver más detalles</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha Publicación</th>
+                        <th>Fecha Entrega</th>
+                        <th>Comuna</th>
+                        <th>Sector</th>
+                        <th>Mascota</th>
+                        <th>Nombre Contacto</th>
+                        <th>Total Fotos</th>
+                    </tr>
+                </thead>
+                <tbody id="avisos-table-body">
+                    <!-- Las filas se generarán con el código del JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Vista del detalle (inicialmente oculta) -->
+        <div id="detail-view" class="hidden">
+            <!-- El contenido del detalle se generará con JavaScript -->
+        </div>
+    </main>
+
+    <!-- Para ver foto en grande (inicialmente oculto) -->
+    <div id="photo-modal" class="hidden">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="modal-image">
+    </div>
+
+    <footer>
+        <p><a href="index.html">Volver a la Portada</a></p>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="js/datos.js"></script>
+    <script src="js/listado.js"></script>
+</body>
+</html>
