@@ -110,7 +110,7 @@ textarea {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Importante para que el padding no afecte el ancho */
+    box-sizing: border-box; 
 }
 
 button {
@@ -140,8 +140,8 @@ button:hover {
 .error-message {
     color: #d9534f;
     font-size: 0.9em;
-    display: block; /* Para que aparezca en su propia línea */
-    height: 1em; /* Para que no mueva el layout al aparecer/desaparecer */
+    display: block; 
+    height: 1em; 
 }
 
 
@@ -170,19 +170,17 @@ button:hover {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.85);
     
-    /* CORRECCIÓN: Usamos flexbox para centrar la imagen perfectamente */
     display: flex;
     justify-content: center;
     align-items: center;
 }
-/* Si el modal tiene la clase .hidden, se oculta. Si no la tiene, se muestra como flex. */
+
 #photo-modal.hidden {
     display: none;
 }
 
 
 .modal-content {
-    /* CORRECCIÓN: Ajustamos para que la imagen no exceda la pantalla y mantenga las proporciones */
     max-width: 800px;
     max-height: 600px;
     width: auto;
@@ -215,7 +213,7 @@ button:hover {
 .photo-gallery img {
     width: 320px;
     height: 240px;
-    object-fit: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
+    object-fit: cover; 
     border: 2px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
@@ -249,15 +247,15 @@ button:hover {
 /* Contenedor principal de las estadísticas */
 .stats-container {
     display: flex;
-    flex-direction: column; /* Apila los gráficos verticalmente */
-    align-items: center; /* Centra los gráficos */
-    gap: 50px; /* Espacio entre cada gráfico */
+    flex-direction: column; 
+    align-items: center;
+    gap: 50px; 
 }
 
 /* Contenedor para cada gráfico individual */
 .chart-container {
     width: 100%;
-    max-width: 700px; /* Ancho máximo para el contenedor del gráfico */
+    max-width: 700px;
     text-align: center;
     background-color: #f9f9f9;
     padding: 20px;
@@ -277,7 +275,7 @@ button:hover {
 }
 
 .chart-container img {
-    max-width: 100%; /* Hace que la imagen sea responsiva */
+    max-width: 100%; 
     height: auto;
     border: 1px solid #ccc;
     border-radius: 4px;

@@ -1,0 +1,30 @@
+Bueno, aquí más que nada dejo cómo se estructuró la tarea, para que quede un poco más claro la construcción de los archivos.
+
+División de los HTML por secciones:
+-Portada (index.html): Página de bienvenida que muestra los últimos 5 avisos.
+-Agregar Aviso (agregar-aviso.html): El formulario completo para publicar una mascota en adopción.
+-Listado de Adopciones (listado-adopciones.html): Una vista de la tabla interactiva de ciertos avisos.
+-Estadísticas (estadisticas.html): Una página que presenta gráficos estáticos sobre los datos de adopción.
+
+Validación a través de JavaScript:
+-La lógica de validación (campos vacíos, formato de email, longitud de texto, rangos numéricos y validación de fechas) se maneja 
+a través de un event listener en el evento submit del formulario.
+-Los mensajes de error se muestran dinámicamente junto a cada campo correspondiente para mejorar la experiencia de usuario
+
+Manejo de datos:
+-Regiones y Comunas (js/region_comuna.js): Los datos de regiones y comunas se trabajaron con su propio archivo JS.
+-Datos de Avisos (js/datos.js): Se creó un archivo datos.js con un arreglo de objetos para simular los avisos de adopción.
+
+Interactividad:
+-En la página de listado, al hacer clic en una fila de la tabla, se oculta la tabla y se muestra una vista detallada del aviso seleccionado.
+-Los gráficos en la página de estadísticas son estáticos y se muestran como imágenes.
+
+Cumplimiento de validador HTML y CSS:
+-Para el error de "src must be non-empty" se utiliza un GIF transparente de 1x1 pixel. 
+
+
+¿Cómo se abordó la tarea?
+-El script main.js sigue un patrón de validación clásico. Se captura el evento submit del formulario y se establece su envío por defecto con event.preventDefault().
+Se realiza una secuencia de validaciones individuales para cada campo requerido. Para la validación de formatos específicos (email, número de celular), se utiliza la técnica estándar de Expresiones Regulares (RegEx).
+
+

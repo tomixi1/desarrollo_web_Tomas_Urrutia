@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Obtenemos las referencias a los elementos principales del DOM
+    // Obtener las referencias a los elementos principales del DOM
     const listView = document.getElementById('list-view');
     const detailView = document.getElementById('detail-view');
     const tableBody = document.getElementById('avisos-table-body');
@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para renderizar la tabla con la lista de avisos
     function renderList() {
-        // Limpiamos cualquier contenido previo
+        // Limpia cualquier contenido previo
         tableBody.innerHTML = '';
 
         // La variable 'datosAvisos' viene del archivo datos.js
         datosAvisos.forEach(aviso => {
             const row = document.createElement('tr');
-            // Guardamos el ID del aviso en el atributo 'data-id' de la fila
+            // Guardar el ID del aviso en el atributo 'data-id' de la fila
             // para saber cuál se clickeó
             row.dataset.id = aviso.id; 
 
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fotosHtml += `<img src="${fotoUrl}" alt="Foto de ${aviso.tipo}" data-src="${fotoUrl}">`;
         });
         
-        // Populamos el contenedor de la vista de detalle
+        // Contenedor de la vista de detalle
         detailView.innerHTML = `
             <h2>Detalles de Adopción: ${aviso.cantidad} ${aviso.tipo}(s)</h2>
             <p><strong>Publicado el:</strong> ${aviso.fechaPublicacion}</p>
@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener para los clics en las filas de la tabla
     tableBody.addEventListener('click', function(event) {
-        // 'closest' sube por el DOM hasta encontrar un 'tr'
         const row = event.target.closest('tr');
         if (row && row.dataset.id) {
             renderDetail(row.dataset.id);
@@ -85,14 +84,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Event listener para los botones y fotos que se crean dinámicamente
-    // Escuchamos en un contenedor padre ('detailView')
     detailView.addEventListener('click', function(event) {
         // Si se hizo clic en el botón para volver a la lista
         if (event.target.id === 'back-to-list-btn') {
             detailView.classList.add('hidden');
             listView.classList.remove('hidden');
         }
-        // Si se hizo clic en una imagen de la galería
+        // Si se hizo clic en una imagen de la galería...
         if (event.target.tagName === 'IMG' && event.target.closest('.photo-gallery')) {
             modalImage.src = event.target.dataset.src || event.target.src;;
             photoModal.classList.remove('hidden');
@@ -104,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         photoModal.classList.add('hidden');
     });
 
-     // CORRECCIÓN OPCIONAL PERO RECOMENDADA: Cerrar el modal al hacer clic fuera de la imagen
+     // Para cerrar el modal al hacer clic fuera de la imagen
     photoModal.addEventListener('click', function(event) {
         // Si el clic fue en el fondo del modal (el propio div) y no en la imagen
         if (event.target.id === 'photo-modal') {

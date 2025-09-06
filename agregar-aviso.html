@@ -14,7 +14,7 @@
 
     <main>
         <!-- Se hace este'novalidate' para que el navegador no interfiera
-             con nuestras validaciones de javascript. -->
+             con las validaciones de javascript. -->
         <form id="adoption-form" novalidate>
             
             <!-- SECCIÓN 1: DÓNDE -->
@@ -131,7 +131,7 @@
                 <div class="form-group">
                     <label for="fotos">Fotos (mínimo 1, máximo 5):</label>
                     <div id="fotos-container">
-                        <input type="file" name="fotos[]" class="photo-input" accept="image/*">
+                        <input type="file" id="fotos" name="fotos[]" class="photo-input" accept="image/*">
                     </div>
                     <button type="button" id="add-photo-btn">Agregar otra foto</button>
                     <span class="error-message" id="fotos-error"></span>
