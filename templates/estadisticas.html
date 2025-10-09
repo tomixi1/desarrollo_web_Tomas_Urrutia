@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de Adopción</title>
+    <!-- Aquí se cambia respecto a lo q venía trabajando en el link estático -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>📊 Estadísticas de Adopción 📊</h1>
+    </header>
+    
+
+    <main>
+        <div class="stats-container">
+
+            <div class="chart-container">
+                <h3>Avisos de Adopción por Día</h3>
+                <p>Este gráfico muestra la tendencia de nuevos avisos publicados durante la última semana.</p>
+                <img src="{{ url_for('static', filename='img/Aumento_por_año.jpg') }}" 
+                    alt="Gráfico de líneas mostrando la cantidad de avisos de adopción por día.">
+            </div>
+
+            <div class="chart-container">
+                <h3>Distribución por Tipo de Mascota</h3>
+                <p>Este gráfico representa el porcentaje total de perros y gatos listados en nuestra plataforma.</p>
+                <img src="{{ url_for('static', filename='img/Gráfico_Circular.jpg') }}" alt="Gráfico de torta mostrando la proporción de perros y gatos en adopción.">
+            </div>
+
+            <div class="chart-container">
+                <h3>Comparativa Mensual: Gatos vs. Perros</h3>
+                <p>Este gráfico compara la cantidad de avisos de gatos frente a perros en los últimos meses.</p>
+                <img src="{{ url_for('static', filename='img/Gráfico_Barras.jpg') }}" alt="Gráfico de barras comparando la cantidad de adopciones de gatos y perros por mes.">
+            </div>
+
+        </div>
+
+        <div class="back-link">
+            <!-- para el enlace de vuelta a la portada -->
+            <a href="{{ url_for('index') }}" class="button-link">Volver a la Portada</a>
+        </div>
+    </main>
+</body>
+</html>

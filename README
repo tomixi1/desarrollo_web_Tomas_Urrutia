@@ -1,0 +1,34 @@
+Buenass. Aquí dejo cómo se estructuró la tarea 2, para que quede más clara la construcción de los archivos:
+
+1. Estructura de la tarea en general:
+Para la tarea, preferí estructurar la lógica del backend más que nada en un único archivo app.py (las rutas, modelos de las bases de datos y configuraciones), pues puede que en general sea menos organizado, pero personalmente me parece conveniente tenerlo así. Esto no es escalable para aplicaciones de gran tamaño o quizás para la tarea 3 que viene, pero lo dejo así para el alcance de esta tarea. 
+
+
+2. Evolución respecto a tarea 1:
+Hay archivos de la primera tarea que no se incorporaron, como /js/datos.js, ya que toda la información de los avisos ahora es obtenida directamente desde la base de datos de mysql. También, el archivo /js/region_comuna.js ya no contiene los datos de las comunas, pues el frontend ahora los solicita al backend.
+
+
+3. Incorporaciones por feedback de tarea 1:
+Validaciones de números enteros: Reforcé la validación de los campos "Cantidad" y "Edad" tanto en el HTML (con el atributo step="1") como en JS, para prevenir que no se coloquen números decimales.
+
+Más campos en listado: Se añade columna "Sector" a la lista de avisos con tal de mostrar toda la información relevante del aviso en la vista principal.
+
+
+4. Funcionalidades de esta tarea:
+Además de lo pedido con base de datos, se tiene lo siguiente:
+
+-Paginado en el Listado: Hay páginas cuando hay más de 5 filas en un mismo resultado de página. Se maneja esto directamente con el backend.
+-Subida de imágenes: El formulario permite la subida de múltiples imágenes, las cuales son validadas, guardadas de forma segura en el servidor y asociadas al aviso correspondiente en la base de datos.
+-API para Vista de Detalle.
+
+
+5. Listado de Adopciones:
+Hay anuncios de adopción que los realicé probando datos, por lo cual, no tienen mucho sentido pero de todas formas no está mal que se vean en la página.
+
+
+6. Validaciones en validador W3C:
+Estas validaciones las hice yendo directamente al código fuente de la página creada, con tal de copiar el código y pegarlo en el "direct input". Esto, pues al subir los archivos señala errores inexistentes propios del trababo de html con flask.
+
+
+7. Dejé en /static/img las implementaciones que hice por mi cuenta, y cómo se ven en portada y en el listado de anuncios.
+
