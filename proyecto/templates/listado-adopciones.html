@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Avisos de Adopción</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>🐾 Listado de Mascotas en Adopción 🐾</h1>
+    </header>
+
+    <main>
+        <!-- VISTA DE LA LISTA -->
+        <div id="list-view">
+            <h2>Haz clic en un aviso para ver más detalles</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha Publicación</th>
+                        <th>Fecha Entrega</th>
+                        <th>Comuna</th>
+                        <th>Sector</th> 
+                        <th>Mascota</th>
+                        <th>Nombre Contacto</th>
+                        <th>Total Fotos</th>
+                    </tr>
+                </thead>
+                <tbody id="avisos-table-body">
+                    <!-- Estas filas se generarán con un bucle Jinja2 -->
+                    {% for aviso in pagination.items %}
+                    <tr data-id="{{ aviso.id }}">
+                        <td>{{ aviso.fecha_ingreso.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ aviso.fecha_entrega.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ aviso.comuna.nombre }}</td>
+                        <td>{{ aviso.sector }}</td>
+                        <td>{{ aviso.cantidad }} {{ aviso.tipo }}(s), {{ aviso.edad }} {% if aviso.unidad_medida == 'm' %}meses{% else %}años{% endif %}</td>
+                        <td>{{ aviso.nombre }}</td>
+                        <td>{{ aviso.fotos|length }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Controles de la Paginación -->
+            <div class="pagination">
+                <!-- Enlace a la págiam Anterior -->
+                {% if pagination.has_prev %}
+                    <a href="{{ url_for('main.listado_adopciones', pagina=pagination.prev_num) }}">&laquo; Anterior</a>
+                {% else %}
+                    <span class="disabled">&laquo; Anterior</span>
+                {% endif %}
+
+                <!-- Info de la página actual -->
+                <span class="current">
+                    Página {{ pagination.page }} de {{ pagination.pages }}.
+                </span>
+
+                <!-- Enlace a la página Siguiente -->
+                {% if pagination.has_next %}
+                    <a href="{{ url_for('main.listado_adopciones', pagina=pagination.next_num) }}">Siguiente &raquo;</a>
+                {% else %}
+                    <span class="disabled">Siguiente &raquo;</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- VISTA DEL DETALLE -->
+        <div id="detail-view" class="hidden">
+            <!-- El contenido del detalle del aviso se generará aquí con JS -->
+            <div id="aviso-detail-content"></div>
+
+            <!-- SECCIÓN DE COMENTARIOS AÑADIDA -->
+            <div class="comments-section">
+                <hr>
+                <h3>Comentarios</h3>
+
+                <!-- Formulario para agregar un nuevo comentario -->
+                <div id="comment-form-container">
+                    <h4>Agregar un nuevo comentario</h4>
+                    <form id="comment-form">
+                        <!-- Campo oculto para saber a qué aviso pertenece el comentario -->
+                        <input type="hidden" id="comment-aviso-id" name="aviso_id">
+                
+                        <div class="form-group">
+                            <label for="comment-nombre">Nombre:</label>
+                            <input type="text" id="comment-nombre" name="nombre" required minlength="3" maxlength="80">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comment-texto">Comentario:</label>
+                            <textarea id="comment-texto" name="texto" rows="4" cols="50" required minlength="5"></textarea>
+                        </div>
+
+                        <!-- Contenedor para mensajes de error del formulario de comentarios -->
+                        <div id="comment-error" class="server-error"></div>
+
+                        <button type="submit">Agregar Comentario</button>
+                    </form>
+                </div>
+
+                <!-- Lista donde se mostrarán los comentarios existentes hasta ese mmomento-->
+                <div id="comments-list-container">
+                    <h4>Comentarios existentes</h4>
+                    <div id="comments-list">
+                        <!-- Los comentarios se cargarán aquí con el JS -->
+                        <p>Cargando comentarios...</p>
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </main>
+
+    <!-- MODAL PARA VER FOTO EN GRANDE (q está inicialmente oculto) -->
+    <div id="photo-modal" class="hidden">
+        <span class="close-btn">&times;</span>
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Vista ampliada de la foto de la mascota" class="modal-content" id="modal-image">
+    </div>
+
+    <footer>
+        <p><a href="{{ url_for('main.index') }}">Volver a la Portada</a></p>
+    </footer>
+    
+    <!-- Enlace al archivo JS que controlará la interactividad -->
+    <script src="{{ url_for('static', filename='js/listado.js') }}"></script>
+</body>
+</html>
+
+
+      

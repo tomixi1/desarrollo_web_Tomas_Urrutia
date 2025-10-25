@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de Adopción</title>
+    <!-- Aquí se cambia respecto a lo q venía trabajando en el link estático -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>📊 Estadísticas de Adopción 📊</h1>
+    </header>
+    
+
+    <!-- DENTRO DE templates/estadisticas.html -->
+<main>
+    <div class="stats-container">
+
+        <!-- Contenedor para el Gráfico de Líneas -->
+        <div class="chart-container">
+            <h3>Avisos de Adopción por Día</h3>
+            <div id="chart-line-container" style="width:100%; height:400px;"></div>
+        </div>
+
+        <!-- Contenedor para el Gráfico de Torta -->
+        <div class="chart-container">
+            <h3>Distribución por Tipo de Mascota</h3>
+            <div id="chart-pie-container" style="width:100%; height:400px;"></div>
+        </div>
+
+        <!-- Contenedor para el Gráfico de Barras -->
+        <div class="chart-container">
+            <h3>Comparativa Mensual: Gatos vs. Perros</h3>
+            <div id="chart-bar-container" style="width:100%; height:400px;"></div>
+        </div>
+
+    </div>
+
+    <div class="back-link">
+        <a href="{{ url_for('main.index') }}" class="button-link">Volver a la Portada</a>
+    </div>
+</main>
+
+ <!-- Carga el nuevo script JS de estadísticas -->
+    <script src="{{ url_for('static', filename='js/estadisticas.js') }}"></script>
+
+</body>
+</html>

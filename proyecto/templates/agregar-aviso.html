@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Aviso de Adopción</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>🐾 Formulario de Adopción 🐾</h1>
+    </header>
+
+    <main>
+        <!-- Mensajes Flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- El action apunta a la ruta de Flask. enctype para subir archivos. -->
+        <form id="adoption-form" action="{{ url_for('main.agregar_aviso_form') }}" method="post" enctype="multipart/form-data" novalidate>
+            
+            <fieldset>
+                <legend>¿Dónde se entrega la mascota?</legend>
+
+                <div class="form-group">
+                    <label for="region">Región:</label>
+                    <select id="region" name="region">
+                        <option value="">-- Seleccione una Región --</option>
+                        {% for region in regiones %}
+                            <option value="{{ region.id }}" {% if form_data and form_data.region == region.id|string %}selected{% endif %}>{{ region.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if errors and errors.region %}<span class="server-error">{{ errors.region }}</span>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="comuna">Comuna:</label>
+                    <select id="comuna" name="comuna">
+                        <option value="">-- Seleccione una Comuna --</option>
+                    </select>
+                    {% if errors and errors.comuna %}<span class="server-error">{{ errors.comuna }}</span>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="sector">Sector (opcional):</label>
+                    <input type="text" id="sector" name="sector" maxlength="100" placeholder="Ej: Villa Los Héroes" value="{{ form_data.sector if form_data }}">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>¿Contacto de esta publicación?</legend>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" value="{{ form_data.nombre if form_data }}">
+                    {% if errors and errors.nombre %}<span class="server-error">{{ errors.nombre }}</span>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" value="{{ form_data.email if form_data }}">
+                    {% if errors and errors.email %}<span class="server-error">{{ errors.email }}</span>{% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="celular">Número de celular (opcional):</label>
+                    <input type="tel" id="celular" name="celular" placeholder="+56912345678" value="{{ form_data.celular if form_data }}">
+                    {% if errors and errors.celular %}<span class="server-error">{{ errors.celular }}</span>{% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactar-por">Contactar por (opcional, máx 5):</label>
+                    <select id="contactar-por" name="contactar-por" multiple>
+                        <option value="whatsapp" {% if form_data and 'whatsapp' in form_data.getlist('contactar-por') %}selected{% endif %}>Whatsapp</option>
+                        <option value="telegram" {% if form_data and 'telegram' in form_data.getlist('contactar-por') %}selected{% endif %}>Telegram</option>
+                        <option value="instagram" {% if form_data and 'instagram' in form_data.getlist('contactar-por') %}selected{% endif %}>Instagram</option>
+                        <option value="tiktok" {% if form_data and 'tiktok' in form_data.getlist('contactar-por') %}selected{% endif %}>Tiktok</option>
+                        <option value="X" {% if form_data and 'X' in form_data.getlist('contactar-por') %}selected{% endif %}>X (Twitter)</option>
+                        <option value="otra" {% if form_data and 'otra' in form_data.getlist('contactar-por') %}selected{% endif %}>Otra</option>
+                    </select>
+                    {% if errors and errors['contactar-por'] %}<span class="server-error">{{ errors['contactar-por'] }}</span>{% endif %}
+                    
+                    <label for="contactar-por-id" style="margin-top: 10px;">ID o URL del medio de contacto:</label>
+                    <input type="text" id="contactar-por-id" name="contactar-por-id" placeholder="Ej: @miusuario o tu URL" value="{{ form_data['contactar-por-id'] if form_data }}">
+                    {% if errors and errors['contactar-por-id'] %}<span class="server-error">{{ errors['contactar-por-id'] }}</span>{% endif %}
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>¿Qué mascota ofrece en adopción?</legend>
+
+                <div class="form-group">
+                    <label for="tipo-mascota">Tipo:</label>
+                    <select id="tipo-mascota" name="tipo-mascota">
+                        <option value="">-- Gato o Perro --</option>
+                        <option value="gato" {% if form_data and form_data['tipo-mascota'] == 'gato' %}selected{% endif %}>Gato</option>
+                        <option value="perro" {% if form_data and form_data['tipo-mascota'] == 'perro' %}selected{% endif %}>Perro</option>
+                    </select>
+                    {% if errors and errors['tipo-mascota'] %}<span class="server-error">{{ errors['tipo-mascota'] }}</span>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" id="cantidad" name="cantidad" min="1" step="1" value="{{ form_data.cantidad if form_data }}">
+                    {% if errors and errors.cantidad %}<span class="server-error">{{ errors.cantidad }}</span>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="edad">Edad:</label>
+                    <input type="number" id="edad" name="edad" min="1" step="1" value="{{ form_data.edad if form_data }}">
+                    {% if errors and errors.edad %}<span class="server-error">{{ errors.edad }}</span>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="unidad-edad">Unidad de medida (edad):</label>
+                    <select id="unidad-edad" name="unidad-edad">
+                         <option value="">-- Meses o Años --</option>
+                         <option value="meses" {% if form_data and form_data['unidad-edad'] == 'meses' %}selected{% endif %}>Meses</option>
+                         <option value="anios" {% if form_data and form_data['unidad-edad'] == 'anios' %}selected{% endif %}>Años</option>
+                    </select>
+                     {% if errors and errors['unidad-edad'] %}<span class="server-error">{{ errors['unidad-edad'] }}</span>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha-entrega">Fecha disponible para entrega:</label>
+                    <input type="datetime-local" id="fecha-entrega" name="fecha-entrega" value="{{ form_data['fecha-entrega'] if form_data }}">
+                    {% if errors and errors['fecha-entrega'] %}<span class="server-error">{{ errors['fecha-entrega'] }}</span>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción (opcional):</label>
+                    <textarea id="descripcion" name="descripcion" rows="5" cols="50">{{ form_data.descripcion if form_data }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="fotos">Fotos (mínimo 1, máximo 5):</label>
+                    <div id="fotos-container">
+                        <input type="file" id="fotos" name="fotos[]" class="photo-input" accept="image/*" multiple>
+                    </div>
+                    {% if errors and errors.fotos %}<span class="server-error">{{ errors.fotos }}</span>{% endif %}
+                </div>
+            </fieldset>
+            
+            <button type="submit" id="submit-btn">Agregar este aviso de adopción</button>
+        </form>
+    </main>
+
+    <footer>
+        <p><a href="{{ url_for('main.index') }}">Volver a la Portada</a></p>
+    </footer>
+    
+    <!-- Los datos vienen del servidor ahora -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

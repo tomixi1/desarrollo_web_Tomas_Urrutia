@@ -1,0 +1,28 @@
+Autor: Tomás Urrutia
+A continuación se presentan los principales detalles, cosas nuevas y modificaciones respecto a la tarea 2.
+
+1.Restrucción de la organización del proyecto.
+
+A diferencia de la tarea 2, se realiza ahora una estructuración completa del proyecto. Antes se organizaba con un solo archivo "app.py", pero ahora divido las responsabilidades. Ahora "models.py" se utiliza para los modelos de la base de datos, "routes.py" para las rutas y la lógica de las vistas, y "__init__.py" para la configuración y creación de la aplicación. Por esto, PARA CARGAR LA APP SE COLOCA "PYTHON RUN.PY" en consola.
+
+
+
+2.Estadísticas asíncronas.
+
+-Las imágenes estáticas fueron reemplazadas por gráficos interactivos generados en el navegador con la biblioteca Highcharts. Con un API de datos se creó una nueva ruta en Flask cuya única responsabilidad es consultar la base de datos, procesar los datos numéricos y devolverlos en formato JSON.
+
+-Se tiene un nuevo script llamado "estadisticas.js", que se encarga de hacer la llamada fetch a la API al cargar la página. Con los datos recibidos se utiliza Highcharts para los gráficos.
+
+
+
+3.Sección interactiva de comentarios.
+
+-Con esta nueva incorporación la carga de comentarios existentes como el envío de nuevos comentarios se realizan mediante llamadas fetch de JavaScript a una API de Flask, sin necesidad de recargar la página.
+
+-Se crearon dos nuevas rutas en el backend (GET y POST) para obtener y guardar comentarios respectivamente, cada una con sus propias validaciones en el servidor.
+
+-Al agregar un nuevo comentario, este aparece instantáneamente en la lista.
+
+
+
+4. Al igual que en la tarea anterior, la validación de los archivos HTML y CSS se realizó utilizando el método de "entrada directa" del validador W3C. Este proceso es necesario ya que el validador no puede interpretar la sintaxis de ciertas plantillas Jinja2.
