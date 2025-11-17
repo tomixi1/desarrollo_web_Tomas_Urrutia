@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Avisos de Adopción</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <header>
+        <h1>🐾 Listado de Mascotas en Adopción 🐾</h1>
+    </header>
+
+    <!-- MENÚ DE NAVEGACIÓN PRINCIPAL -->
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Portada</a></li>
+            <li><a th:href="@{/agregar}">Agregar aviso</a></li>
+            <li><a th:href="@{/listado}">Ver listado de adopciones</a></li>
+            <li><a th:href="@{/estadisticas}">Estadísticas</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div id="list-view">
+            <h2>Listado completo de avisos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha publicación</th>
+                        <th>Sector</th>
+                        <th>Cantidad, Tipo y Edad</th>
+                        <th>Comuna</th>
+                        <th>Nota</th>
+                        <th>Evaluar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="aviso : ${pagination.content}">
+                        <td th:text="${aviso.id}">1</td>
+                        <td th:text="${#temporals.format(aviso.fechaIngreso, 'yyyy-MM-dd HH:mm')}">2025-06-02</td>
+                        <td th:text="${aviso.sector}">Beauchef 859</td>
+                        <td th:text="|${aviso.cantidad} ${aviso.tipo} ${aviso.edad} ${aviso.unidadMedida == 'm' ? 'meses' : 'años'}|">1 gato 2 meses</td>
+                        <td th:text="${aviso.comuna.nombre}">Santiago</td>
+                        <td th:id="|nota-${aviso.id}|" th:text="${aviso.notaPromedio != null ? #numbers.formatDecimal(aviso.notaPromedio, 1, 1) : '-'}">6</td>
+                        <td>
+                            <a href="#" class="evaluar-link" th:attr="data-id=${aviso.id}">evaluar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Controles de paginación -->
+            <div class="pagination">
+                <a th:if="${pagination.hasPrevious()}" th:href="@{/listado(pagina=${pagination.number - 1})}">&laquo; Anterior</a>
+                <span th:unless="${pagination.hasPrevious()}" class="disabled">&laquo; Anterior</span>
+
+                <!-- Se usa thymeleaf para numeritos de paginación -->
+                <span class="current" th:text="|Página ${pagination.number + 1} de ${pagination.totalPages}.|">
+                    Página 1 de 3.
+                </span>
+
+                <a th:if="${pagination.hasNext()}" th:href="@{/listado(pagina=${pagination.number + 1})}">Siguiente &raquo;</a>
+                <span th:unless="${pagination.hasNext()}" class="disabled">Siguiente &raquo;</span>
+            </div>
+        </div>
+    </main>
+
+    <script th:src="@{/js/evaluacion.js}"></script>
+</body>
+</html>

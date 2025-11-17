@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopta una Mascota - Portada</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <header>
+        <h1>🐾 Adopta una Mascota 🐾</h1>
+        <p> Bienvenido! Estás en el lugar correcto para encontrar a tu próximo mejor amigo</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Portada</a></li>
+            <li><a th:href="@{/agregar}">Agregar aviso</a></li>
+            <li><a th:href="@{/listado}">Ver listado de adopciones</a></li>
+            <li><a th:href="@{/estadisticas}">Estadísticas</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Últimos 5 avisos de adopción</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha publicación</th>
+                    <th>Comuna</th>
+                    <th>Sector</th>
+                    <th>Cantidad, Tipo y edad</th>
+                    <th>Foto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Este es el bucle de thymeleaf para iterar sobre los avisos -->
+                <tr th:each="aviso : ${avisos}">
+                    <td th:text="${#temporals.format(aviso.fechaIngreso, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${aviso.comuna.nombre}"></td>
+                    <td th:text="${aviso.sector}"></td>
+                    <!-- Usamos operador de thymeleaf para la unidad de medida -->
+                    <td th:text="|${aviso.cantidad} ${aviso.tipo}, ${aviso.edad} ${aviso.unidadMedida == 'm' ? 'meses' : 'años'}|"></td>
+                    <td>
+                        <!-- No se pide fotopara esta tarea-->
+                        <span>(Foto no disponible en Tarea 4)</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>Desarrollo de Aplicaciones Web - CC5002 - Tarea 4</p>
+    </footer>
+
+</body>
+</html>

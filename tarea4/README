@@ -1,0 +1,40 @@
+Autor: Tomás Urrutia
+
+1. Contexto general de la tarea 4.
+Se realizaron aquellas nuevas funcionalidades pedidas en cuanto a evaluación de avisos mediante notas, sin embargo, las demás secciones "Portada", "Agregar aviso de Formulario" y "Estadísticas" fueron simplificadas con tal de no interrumpir y beneficiar a lo pedido.
+
+
+2. Arquitectura del Back-end (Java / Spring boot).
+Se estableción una separación de responsabilidades a través de una estructura de paquetes bien definida:
+
+-controllers: Contiene las clases que manejan las peticiones HTTP. Este sería el puente entre las solicitudes del usuario y la lógica de la aplicación. 
+
+-models: Aquí estánn las entidades JPA. Cada clase en este paquete es una representación orientada a objetos de una tabla en la base de datos MySQL.
+
+-repositories: Este paquete contiene las interfaces de Spring Data JPA. 
+
+-dto (data tranfer objects): Para una mayor comunicación con el front-end.
+
+-application.properties: Configuración de la aplicación.
+
+-pom.xml: Archivo de configuración de Maven.
+
+
+3. FUNCIONALIDAD IMPLEMENTADAS.
+-El usuario hace click en evaluar en el aviso del listado. Luego, el JS llama una ventana para solicitar esta nota del 1 al 7. Así, la nota es validada desde el lado del cliente. Luego, si ees válida, se envía al back-end a través de una petición fetch de tipo POST. El back-end guarda la nota, recalcula el promedio y devuelve el nuevo valor. JS recibe la respuesta y actualiza instantáneamente la celda "Nota" en la tabla.
+
+-Front-end (evaluacion.js): Este nuevo script se encarga de toda la lógica del lado del cliente, capturando los clicks.
+
+-Back-end (AvisoController.java): Se creó un nuevo endpoint que recibe la nota, la valida y luego recalcula y devuelve el promedio. 
+
+
+4. Integración del Front-end y Thymeleaf.
+Para que el back-end en Java pudiera servir las páginas HTML existentes, se realizó esta migración desde Jinja2 a Thymeleaf. Todos los archivos .html en la carpeta src/main/resources/templates/ fueron traducidos para usar la sintaxis de Thymeleaf. Esto permitió reutilizar la mayor parte del HTML y CSS de las tareas anteriores, conectándolos a los nuevos controladores de Spring Boot.
+
+
+5. Páginas de Soporte (Portada, Agregar, Estadísticas).
+Si bien estas páginas se renderizan correctamente, es importante señalar que su funcionalidad completa (como procesar el formulario de agregar o generar gráficos dinámicos) no formaba parte del alcance de la Tarea 4 y, por lo tanto, se presentan como vistas estáticas.
+
+
+6. Instrucciones para la ejecución.
+-Siempre inicialicé la aplicación ejecutando "Tarea4Application.java" desde VS Code. y luego abriendo en el navegador con el link de http://localhost:8080/.

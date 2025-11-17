@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de Adopción</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <header>
+        <h1>📊 Estadísticas de Adopción 📊</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Portada</a></li>
+            <li><a th:href="@{/agregar}">Agregar aviso</a></li>
+            <li><a th:href="@{/listado}">Ver listado de adopciones</a></li>
+            <li><a th:href="@{/estadisticas}">Estadísticas</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="alert alert-danger" style="text-align: center;">
+            <strong>Nota:</strong> La funcionalidad para generar gráficos dinámicos no es un requisito de la Tarea 4.
+        </div>
+        
+        <div class="back-link">
+            <a th:href="@{/}" class="button-link">Volver a la Portada</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Desarrollo de Aplicaciones Web - CC5002 - Tarea 4</p>
+    </footer>
+    
+</body>
+</html>
